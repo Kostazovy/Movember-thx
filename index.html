@@ -1,0 +1,324 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Movember děkovačka</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+  /* Layout: jedna úzká sloupcová stránka. Nahoře velké poděkování, pod ním součet, pak nástěnka lístků s příspěvky, dole jmenovitá děkovačka. */
+  :root {
+    --bg: #eceff3;
+    --surface: #ffffff;
+    --ink: #101c2b;
+    --muted: #55637a;
+    --line: #cfd6e0;
+    --accent: #1f3fd1;
+    --accent-ink: #ffffff;
+    --track: #d9dfe8;
+    --n1: #dfe7ff;
+    --n2: #d8f0e4;
+    --n3: #f8edc2;
+    --pin: #c9372c;
+    --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+    --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0c1522;
+      --surface: #142033;
+      --ink: #eaf0f8;
+      --muted: #9aa9bf;
+      --line: #263650;
+      --accent: #7f9bff;
+      --accent-ink: #0c1522;
+      --track: #223149;
+      --n1: #1d2c52;
+      --n2: #17372f;
+      --n3: #473e1a;
+      --pin: #ee6a5e;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0c1522;
+    --surface: #142033;
+    --ink: #eaf0f8;
+    --muted: #9aa9bf;
+    --line: #263650;
+    --accent: #7f9bff;
+    --accent-ink: #0c1522;
+    --track: #223149;
+    --n1: #1d2c52;
+    --n2: #17372f;
+    --n3: #473e1a;
+    --pin: #ee6a5e;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.55;
+    padding-block: 0;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; }
+  h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; }
+  p { margin: 0; }
+  a { color: var(--accent); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  /* Hlavička */
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; font-size: 14px; }
+  .brand svg { width: 46px; height: auto; color: var(--ink); }
+  .year { font-size: 14px; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+
+  /* Logo Movember (dodal Jiří): černé na průhledném, v tmavém režimu převrácené na bílé */
+  .logo { display: block; height: clamp(64px, 12vw, 96px); width: auto; max-width: 60%; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .logo { filter: invert(1); } }
+  :root[data-theme="dark"] .logo { filter: invert(1); }
+
+  /* Poděkování */
+  .thanks { padding-block: 56px 40px; }
+  .thanks h1 { font-size: clamp(76px, 20vw, 210px); line-height: .86; font-weight: 800; letter-spacing: -.035em; }
+  .thanks h1 span { color: var(--accent); }
+  .thanks .lead { margin-top: 28px; max-width: 34em; font-size: clamp(19px, 2.6vw, 24px); line-height: 1.45; }
+  .thanks .lead + .lead { margin-top: 14px; color: var(--muted); font-size: clamp(17px, 2.2vw, 20px); }
+
+  /* Součet */
+  .total { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: clamp(20px, 4vw, 36px); display: grid; gap: 22px; }
+  .total-row { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px 32px; }
+  .label { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
+  .sum { font-family: var(--display); font-weight: 800; font-size: clamp(54px, 11vw, 112px); line-height: 1; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+  .facts { display: flex; gap: 28px; flex-wrap: wrap; }
+  .facts div { min-width: 0; }
+  .facts b { display: block; font-family: var(--display); font-size: 28px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .bar { height: 14px; border-radius: 99px; background: var(--track); overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 99px; background: var(--accent); min-width: 14px; }
+  .bar-cap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 15px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  /* Příběh */
+  .why { padding-block: 56px 8px; display: grid; grid-template-columns: 1fr; gap: 14px; max-width: 40em; }
+  .why h2 { font-size: clamp(26px, 4vw, 36px); line-height: 1.1; }
+  .why p { color: var(--muted); }
+  .why p b { color: var(--ink); font-weight: 600; }
+
+  /* Nástěnka */
+  .board-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; padding-block: 56px 22px; }
+  .board-head h2 { font-size: clamp(30px, 5vw, 46px); line-height: 1.05; }
+  .board-head p { color: var(--muted); }
+  .board { list-style: none; margin: 0; padding: 10px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 26px 22px; }
+  .note { position: relative; min-width: 0; display: flex; flex-direction: column; gap: 10px; padding: 26px 20px 20px; border-radius: 4px; background: var(--n1); box-shadow: 0 1px 0 rgba(0,0,0,.05), 0 10px 18px -12px rgba(0,0,0,.35); transition: transform .2s ease; }
+  .note:nth-child(3n+2) { background: var(--n2); }
+  .note:nth-child(3n+3) { background: var(--n3); }
+  .note:nth-child(4n+1) { transform: rotate(-1.1deg); }
+  .note:nth-child(4n+2) { transform: rotate(.8deg); }
+  .note:nth-child(4n+3) { transform: rotate(-.4deg); }
+  .note:nth-child(4n+4) { transform: rotate(1.2deg); }
+  .note:hover { transform: rotate(0) translateY(-3px); }
+  .note::before { content: ""; position: absolute; top: 9px; left: 50%; width: 11px; height: 11px; margin-left: -5px; border-radius: 50%; background: var(--pin); box-shadow: 0 2px 2px rgba(0,0,0,.3); }
+  .note .amt { font-family: var(--display); font-weight: 800; font-size: 40px; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .note .msg { font-size: 17px; line-height: 1.4; overflow-wrap: anywhere; }
+  .note .who { margin-top: auto; padding-top: 6px; font-weight: 600; font-size: 15px; overflow-wrap: anywhere; }
+  .note .when { display: block; font-weight: 400; font-size: 13px; color: var(--muted); }
+  .note.featured { grid-column: span 2; padding-top: 32px; }
+  .note.featured .amt { font-size: clamp(48px, 8vw, 72px); }
+  .note.featured .msg { font-size: 20px; }
+  .note .tag { font-size: 12px; text-transform: uppercase; letter-spacing: .09em; font-weight: 700; color: var(--accent); }
+  @media (max-width: 560px) { .note.featured { grid-column: auto; } }
+  .empty { grid-column: 1 / -1; padding: 40px 20px; text-align: center; color: var(--muted); border: 2px dashed var(--line); border-radius: 12px; }
+
+  /* Jmenovitá děkovačka */
+  .roll { margin-top: 72px; padding: clamp(28px, 6vw, 64px) clamp(20px, 5vw, 56px); background: var(--ink); color: var(--bg); border-radius: 22px; }
+  .roll .label { color: inherit; opacity: .7; }
+  .roll h2 { font-size: clamp(34px, 6vw, 64px); line-height: 1; margin-top: 10px; letter-spacing: -.02em; }
+  .names { margin-top: 26px; font-family: var(--display); font-weight: 700; font-size: clamp(22px, 3.4vw, 36px); line-height: 1.3; letter-spacing: -.01em; }
+  .names span { white-space: nowrap; }
+  .names span:not(:last-child)::after { content: " · "; opacity: .45; white-space: pre; }
+  .roll .anon { margin-top: 18px; opacity: .8; font-size: 18px; }
+  .roll .sign { margin-top: 34px; font-size: clamp(19px, 2.6vw, 24px); max-width: 30em; }
+
+  .join { margin-top: 40px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,.18); display: flex; flex-wrap: wrap; align-items: center; gap: 24px 36px; }
+  .join .qr { flex: none; width: 168px; padding: 12px; background: #fff; border-radius: 12px; line-height: 0; }
+  .join .qr svg { width: 100%; height: auto; display: block; }
+  .join .txt { flex: 1 1 260px; min-width: 0; }
+  .join h3 { font-size: clamp(24px, 3.6vw, 36px); line-height: 1.1; letter-spacing: -.01em; }
+  .join p { margin-top: 10px; font-size: 18px; opacity: .85; max-width: 28em; }
+  .join .cta { margin-top: 18px; }
+  /* Přispět a patička */
+  .cta { margin-top: 28px; display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 99px; background: var(--accent); color: var(--accent-ink); font-weight: 600; text-decoration: none; font-size: 17px; }
+  .cta:hover { filter: brightness(1.08); }
+  .foot { padding-block: 40px 56px; color: var(--muted); font-size: 14px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+  @media (prefers-reduced-motion: reduce) { .note { transition: none; } .note:hover { transform: none; } }
+  @media (max-width: 520px) { .thanks { padding-block: 40px 28px; } .facts { gap: 20px; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <img class="logo" src="data:image/png;base64,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" alt="Movember" width="863" height="286">
+    <div class="year" id="year"></div>
+  </header>
+
+  <section class="thanks" aria-labelledby="dik">
+    <h1 id="dik">Děkuju<span>.</span></h1>
+    <p class="lead">Už počtrnácté jsem si v listopadu nechal narůst knír. A už počtrnácté se našli lidé, kteří za ním stojí.</p>
+    <p class="lead">Každá koruna míří na výzkum a podporu mužského zdraví: rakovina prostaty, rakovina varlat a duševní zdraví. Díky vám je to moje nejhezčí listopadová tradice.</p>
+  </section>
+
+  <section class="total" aria-label="Celková vybraná částka">
+    <div class="total-row">
+      <div>
+        <div class="label">Vybráno letos</div>
+        <div class="sum" id="sum">0&nbsp;Kč</div>
+      </div>
+      <div class="facts">
+        <div><span class="label">Příspěvků</span><b id="count">0</b></div>
+        <div><span class="label">Loni, v roce 2025</span><b id="all">13&nbsp;800&nbsp;Kč</b></div>
+      </div>
+    </div>
+    <div>
+      <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="25000" aria-valuenow="0" id="bar"><i id="fill"></i></div>
+      <div class="bar-cap" style="margin-top:10px"><span id="pct"></span><span id="goal"></span></div>
+    </div>
+  </section>
+
+  <section class="why" aria-labelledby="proc">
+    <h2 id="proc">Proč to dělám</h2>
+    <p>Mohu <b>osobně přispět tím, že něco změním na sobě</b>, abych dokázal změnit něco u ostatních. Moje žena mi v listopadu knír dovolí, i když ho nesnáší.</p>
+    <p>A hlavně: na počest <b>Evžena Folty</b>, mého dědy, který zemřel na následky rakoviny prostaty. Viděl jsem, co tahle nemoc s člověkem udělá, a budu s ní bojovat i další roky.</p>
+  </section>
+
+  <section aria-labelledby="nastenka">
+    <div class="board-head">
+      <h2 id="nastenka">Nástěnka příspěvků</h2>
+      <p id="boardnote">Nejnovější nahoře</p>
+    </div>
+    <ul class="board" id="board"></ul>
+  </section>
+
+  <section class="roll" aria-labelledby="rollh">
+    <div class="label">Jmenovitě</div>
+    <h2 id="rollh">Díky vám všem.</h2>
+    <p class="names" id="names"></p>
+    <p class="sign">Za každé jméno, každou zprávu i každou stokorunu. Vidíme se zase příští rok.</p>
+    <div class="join" id="join">
+      <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="QR kód: přispět na Movember profil"><path fill="#000" d="M0,0h1v1h-1zM1,0h1v1h-1zM2,0h1v1h-1zM3,0h1v1h-1zM4,0h1v1h-1zM5,0h1v1h-1zM6,0h1v1h-1zM10,0h1v1h-1zM16,0h1v1h-1zM17,0h1v1h-1zM18,0h1v1h-1zM19,0h1v1h-1zM20,0h1v1h-1zM21,0h1v1h-1zM22,0h1v1h-1zM23,0h1v1h-1zM26,0h1v1h-1zM27,0h1v1h-1zM28,0h1v1h-1zM29,0h1v1h-1zM30,0h1v1h-1zM31,0h1v1h-1zM32,0h1v1h-1zM0,1h1v1h-1zM6,1h1v1h-1zM11,1h1v1h-1zM15,1h1v1h-1zM18,1h1v1h-1zM20,1h1v1h-1zM26,1h1v1h-1zM32,1h1v1h-1zM0,2h1v1h-1zM2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM6,2h1v1h-1zM8,2h1v1h-1zM9,2h1v1h-1zM11,2h1v1h-1zM14,2h1v1h-1zM15,2h1v1h-1zM16,2h1v1h-1zM18,2h1v1h-1zM19,2h1v1h-1zM21,2h1v1h-1zM23,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM32,2h1v1h-1zM0,3h1v1h-1zM2,3h1v1h-1zM3,3h1v1h-1zM4,3h1v1h-1zM6,3h1v1h-1zM8,3h1v1h-1zM9,3h1v1h-1zM10,3h1v1h-1zM12,3h1v1h-1zM15,3h1v1h-1zM17,3h1v1h-1zM18,3h1v1h-1zM20,3h1v1h-1zM21,3h1v1h-1zM22,3h1v1h-1zM23,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM29,3h1v1h-1zM30,3h1v1h-1zM32,3h1v1h-1zM0,4h1v1h-1zM2,4h1v1h-1zM3,4h1v1h-1zM4,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM9,4h1v1h-1zM11,4h1v1h-1zM12,4h1v1h-1zM14,4h1v1h-1zM15,4h1v1h-1zM16,4h1v1h-1zM17,4h1v1h-1zM19,4h1v1h-1zM21,4h1v1h-1zM23,4h1v1h-1zM26,4h1v1h-1zM28,4h1v1h-1zM29,4h1v1h-1zM30,4h1v1h-1zM32,4h1v1h-1zM0,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM14,5h1v1h-1zM17,5h1v1h-1zM20,5h1v1h-1zM22,5h1v1h-1zM26,5h1v1h-1zM32,5h1v1h-1zM0,6h1v1h-1zM1,6h1v1h-1zM2,6h1v1h-1zM3,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM12,6h1v1h-1zM14,6h1v1h-1zM16,6h1v1h-1zM18,6h1v1h-1zM20,6h1v1h-1zM22,6h1v1h-1zM24,6h1v1h-1zM26,6h1v1h-1zM27,6h1v1h-1zM28,6h1v1h-1zM29,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM8,7h1v1h-1zM10,7h1v1h-1zM14,7h1v1h-1zM16,7h1v1h-1zM21,7h1v1h-1zM0,8h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM9,8h1v1h-1zM11,8h1v1h-1zM12,8h1v1h-1zM13,8h1v1h-1zM16,8h1v1h-1zM17,8h1v1h-1zM19,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM27,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM0,9h1v1h-1zM1,9h1v1h-1zM2,9h1v1h-1zM4,9h1v1h-1zM5,9h1v1h-1zM7,9h1v1h-1zM8,9h1v1h-1zM11,9h1v1h-1zM12,9h1v1h-1zM13,9h1v1h-1zM16,9h1v1h-1zM18,9h1v1h-1zM19,9h1v1h-1zM20,9h1v1h-1zM23,9h1v1h-1zM26,9h1v1h-1zM27,9h1v1h-1zM29,9h1v1h-1zM30,9h1v1h-1zM31,9h1v1h-1zM32,9h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM6,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM10,10h1v1h-1zM13,10h1v1h-1zM14,10h1v1h-1zM15,10h1v1h-1zM16,10h1v1h-1zM17,10h1v1h-1zM18,10h1v1h-1zM21,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM28,10h1v1h-1zM30,10h1v1h-1zM31,10h1v1h-1zM1,11h1v1h-1zM3,11h1v1h-1zM8,11h1v1h-1zM11,11h1v1h-1zM12,11h1v1h-1zM13,11h1v1h-1zM15,11h1v1h-1zM18,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM30,11h1v1h-1zM31,11h1v1h-1zM0,12h1v1h-1zM2,12h1v1h-1zM3,12h1v1h-1zM4,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM9,12h1v1h-1zM12,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM18,12h1v1h-1zM19,12h1v1h-1zM20,12h1v1h-1zM22,12h1v1h-1zM23,12h1v1h-1zM24,12h1v1h-1zM25,12h1v1h-1zM28,12h1v1h-1zM29,12h1v1h-1zM31,12h1v1h-1zM0,13h1v1h-1zM7,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM13,13h1v1h-1zM15,13h1v1h-1zM17,13h1v1h-1zM19,13h1v1h-1zM21,13h1v1h-1zM23,13h1v1h-1zM26,13h1v1h-1zM27,13h1v1h-1zM29,13h1v1h-1zM30,13h1v1h-1zM31,13h1v1h-1zM32,13h1v1h-1zM0,14h1v1h-1zM2,14h1v1h-1zM4,14h1v1h-1zM6,14h1v1h-1zM8,14h1v1h-1zM10,14h1v1h-1zM12,14h1v1h-1zM15,14h1v1h-1zM16,14h1v1h-1zM20,14h1v1h-1zM21,14h1v1h-1zM22,14h1v1h-1zM24,14h1v1h-1zM25,14h1v1h-1zM26,14h1v1h-1zM28,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM2,15h1v1h-1zM3,15h1v1h-1zM4,15h1v1h-1zM5,15h1v1h-1zM7,15h1v1h-1zM8,15h1v1h-1zM9,15h1v1h-1zM11,15h1v1h-1zM12,15h1v1h-1zM13,15h1v1h-1zM15,15h1v1h-1zM20,15h1v1h-1zM21,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM24,15h1v1h-1zM25,15h1v1h-1zM26,15h1v1h-1zM27,15h1v1h-1zM29,15h1v1h-1zM30,15h1v1h-1zM2,16h1v1h-1zM4,16h1v1h-1zM6,16h1v1h-1zM7,16h1v1h-1zM8,16h1v1h-1zM9,16h1v1h-1zM13,16h1v1h-1zM15,16h1v1h-1zM17,16h1v1h-1zM18,16h1v1h-1zM22,16h1v1h-1zM24,16h1v1h-1zM25,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM32,16h1v1h-1zM1,17h1v1h-1zM4,17h1v1h-1zM7,17h1v1h-1zM9,17h1v1h-1zM12,17h1v1h-1zM14,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM18,17h1v1h-1zM19,17h1v1h-1zM21,17h1v1h-1zM23,17h1v1h-1zM26,17h1v1h-1zM27,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM32,17h1v1h-1zM1,18h1v1h-1zM5,18h1v1h-1zM6,18h1v1h-1zM7,18h1v1h-1zM8,18h1v1h-1zM13,18h1v1h-1zM14,18h1v1h-1zM15,18h1v1h-1zM18,18h1v1h-1zM21,18h1v1h-1zM22,18h1v1h-1zM24,18h1v1h-1zM25,18h1v1h-1zM26,18h1v1h-1zM27,18h1v1h-1zM28,18h1v1h-1zM30,18h1v1h-1zM31,18h1v1h-1zM1,19h1v1h-1zM5,19h1v1h-1zM7,19h1v1h-1zM8,19h1v1h-1zM10,19h1v1h-1zM13,19h1v1h-1zM14,19h1v1h-1zM16,19h1v1h-1zM19,19h1v1h-1zM21,19h1v1h-1zM23,19h1v1h-1zM25,19h1v1h-1zM27,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM30,19h1v1h-1zM0,20h1v1h-1zM3,20h1v1h-1zM4,20h1v1h-1zM6,20h1v1h-1zM8,20h1v1h-1zM9,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM14,20h1v1h-1zM18,20h1v1h-1zM20,20h1v1h-1zM23,20h1v1h-1zM24,20h1v1h-1zM25,20h1v1h-1zM28,20h1v1h-1zM29,20h1v1h-1zM31,20h1v1h-1zM0,21h1v1h-1zM1,21h1v1h-1zM5,21h1v1h-1zM10,21h1v1h-1zM13,21h1v1h-1zM15,21h1v1h-1zM16,21h1v1h-1zM17,21h1v1h-1zM18,21h1v1h-1zM19,21h1v1h-1zM22,21h1v1h-1zM23,21h1v1h-1zM26,21h1v1h-1zM30,21h1v1h-1zM32,21h1v1h-1zM0,22h1v1h-1zM3,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM7,22h1v1h-1zM8,22h1v1h-1zM10,22h1v1h-1zM17,22h1v1h-1zM21,22h1v1h-1zM22,22h1v1h-1zM27,22h1v1h-1zM29,22h1v1h-1zM30,22h1v1h-1zM31,22h1v1h-1zM0,23h1v1h-1zM2,23h1v1h-1zM3,23h1v1h-1zM8,23h1v1h-1zM14,23h1v1h-1zM16,23h1v1h-1zM19,23h1v1h-1zM20,23h1v1h-1zM21,23h1v1h-1zM22,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM28,23h1v1h-1zM29,23h1v1h-1zM30,23h1v1h-1zM31,23h1v1h-1zM32,23h1v1h-1zM0,24h1v1h-1zM2,24h1v1h-1zM3,24h1v1h-1zM4,24h1v1h-1zM6,24h1v1h-1zM8,24h1v1h-1zM9,24h1v1h-1zM10,24h1v1h-1zM11,24h1v1h-1zM13,24h1v1h-1zM17,24h1v1h-1zM20,24h1v1h-1zM22,24h1v1h-1zM23,24h1v1h-1zM24,24h1v1h-1zM25,24h1v1h-1zM26,24h1v1h-1zM27,24h1v1h-1zM28,24h1v1h-1zM31,24h1v1h-1zM8,25h1v1h-1zM10,25h1v1h-1zM11,25h1v1h-1zM13,25h1v1h-1zM14,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM18,25h1v1h-1zM19,25h1v1h-1zM20,25h1v1h-1zM24,25h1v1h-1zM28,25h1v1h-1zM30,25h1v1h-1zM32,25h1v1h-1zM0,26h1v1h-1zM1,26h1v1h-1zM2,26h1v1h-1zM3,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM15,26h1v1h-1zM16,26h1v1h-1zM17,26h1v1h-1zM20,26h1v1h-1zM21,26h1v1h-1zM22,26h1v1h-1zM23,26h1v1h-1zM24,26h1v1h-1zM26,26h1v1h-1zM28,26h1v1h-1zM30,26h1v1h-1zM31,26h1v1h-1zM0,27h1v1h-1zM6,27h1v1h-1zM8,27h1v1h-1zM11,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM20,27h1v1h-1zM21,27h1v1h-1zM22,27h1v1h-1zM24,27h1v1h-1zM28,27h1v1h-1zM29,27h1v1h-1zM30,27h1v1h-1zM31,27h1v1h-1zM32,27h1v1h-1zM0,28h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM6,28h1v1h-1zM8,28h1v1h-1zM9,28h1v1h-1zM10,28h1v1h-1zM14,28h1v1h-1zM16,28h1v1h-1zM20,28h1v1h-1zM24,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM27,28h1v1h-1zM28,28h1v1h-1zM29,28h1v1h-1zM31,28h1v1h-1zM32,28h1v1h-1zM0,29h1v1h-1zM2,29h1v1h-1zM3,29h1v1h-1zM4,29h1v1h-1zM6,29h1v1h-1zM8,29h1v1h-1zM10,29h1v1h-1zM11,29h1v1h-1zM15,29h1v1h-1zM18,29h1v1h-1zM19,29h1v1h-1zM21,29h1v1h-1zM22,29h1v1h-1zM25,29h1v1h-1zM28,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM0,30h1v1h-1zM2,30h1v1h-1zM3,30h1v1h-1zM4,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM11,30h1v1h-1zM13,30h1v1h-1zM14,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM25,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM0,31h1v1h-1zM6,31h1v1h-1zM11,31h1v1h-1zM14,31h1v1h-1zM15,31h1v1h-1zM18,31h1v1h-1zM19,31h1v1h-1zM20,31h1v1h-1zM21,31h1v1h-1zM25,31h1v1h-1zM28,31h1v1h-1zM29,31h1v1h-1zM30,31h1v1h-1zM0,32h1v1h-1zM1,32h1v1h-1zM2,32h1v1h-1zM3,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM11,32h1v1h-1zM12,32h1v1h-1zM13,32h1v1h-1zM14,32h1v1h-1zM15,32h1v1h-1zM17,32h1v1h-1zM22,32h1v1h-1zM23,32h1v1h-1zM24,32h1v1h-1zM25,32h1v1h-1zM27,32h1v1h-1zM31,32h1v1h-1z"/></svg></div>
+      <div class="txt">
+        <h3>Chceš pomoct a být na nástěnce taky?</h3>
+        <p>Naskenuj QR kód nebo klikni na odkaz. Tvůj lístek přibude mezi ostatní.</p>
+            <a class="cta" id="donate" href="https://cz.movember.com/donate/details?memberId=6659829" target="_blank" rel="noopener" hidden>Přispět můžete ještě do konce listopadu</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span id="updated"></span>
+    <a href="https://cz.movember.com/mospace/6659829" target="_blank" rel="noopener">Můj profil na Movember.cz</a>
+  </footer>
+</div>
+
+<script>
+  /* ===== DATA: sem se doplňují příspěvky (nejnovější první) ===== */
+  var YEAR = 2026;
+  var GOAL = 25000;
+  var DONATION_OPEN = true;    // po skončení Movemberu přepnout na false
+  var UPDATED = "8. 11. 2026";
+  var DONATIONS = [
+    { name: "Renča Kostov", amount: 1000, message: "", date: "8. 11." },
+    { name: "Anonymní", amount: 400, message: "", date: "8. 11." },
+    { name: "Eva Kostovová", amount: 500, message: "", date: "3. 11." },
+    { name: "Anonymní", amount: 10000, message: "Batter safe than sorry!", date: "2. 11." },
+    { name: "Lukáš Bizoň", amount: 111, message: "", date: "1. 11." },
+    { name: "Kateřina Stankušová", amount: 500, message: "", date: "1. 11." },
+    { name: "Lucie Steffková", amount: 300, message: "L+M+E", date: "1. 11." }
+  ];
+  /* ============================================================== */
+
+  function kc(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " Kč"; }
+  function plural(n, a, b, c) { return n === 1 ? a : (n >= 2 && n <= 4 ? b : c); }
+  function $(id) { return document.getElementById(id); }
+
+  var total = DONATIONS.reduce(function (s, d) { return s + d.amount; }, 0);
+  var pct = Math.min(100, total / GOAL * 100);
+
+  $("year").textContent = "Movember " + YEAR + " · 14. rok";
+  $("sum").textContent = kc(total);
+  $("count").textContent = DONATIONS.length;
+  $("fill").style.width = Math.max(pct, 1.5) + "%";
+  $("bar").setAttribute("aria-valuenow", total);
+  $("pct").textContent = (pct < 10 ? pct.toFixed(1).replace(".", ",") : Math.round(pct)) + " % cíle";
+  $("goal").textContent = "cíl " + kc(GOAL);
+  $("updated").textContent = "Aktualizováno " + UPDATED;
+  $("donate").hidden = !DONATION_OPEN;
+  $("join").hidden = !DONATION_OPEN;
+  $("boardnote").textContent = DONATIONS.length + " " + plural(DONATIONS.length, "příspěvek", "příspěvky", "příspěvků") + ", největší nahoře, pak od nejnovějších";
+
+  var board = $("board");
+  if (!DONATIONS.length) {
+    var e = document.createElement("li");
+    e.className = "empty";
+    e.textContent = "První lístek zatím chybí. Bude to ten váš?";
+    board.appendChild(e);
+  }
+  /* Největší příspěvek roku se zvýrazní automaticky, pokud dosáhne aspoň 5 000 Kč */
+  var biggest = DONATIONS.reduce(function (m, d) { return !m || d.amount > m.amount ? d : m; }, null);
+  var FEATURE_MIN = 5000;
+  /* Zvýrazněný největší příspěvek jde na nástěnce nad všechny ostatní */
+  var ordered = DONATIONS.slice();
+  if (biggest && biggest.amount >= FEATURE_MIN) {
+    ordered = [biggest].concat(DONATIONS.filter(function (d) { return d !== biggest; }));
+  }
+  ordered.forEach(function (d) {
+    var li = document.createElement("li");
+    var isTop = biggest === d && d.amount >= FEATURE_MIN;
+    li.className = isTop ? "note featured" : "note";
+    if (isTop) {
+      var tg = document.createElement("div");
+      tg.className = "tag";
+      tg.textContent = "Největší příspěvek letošního roku";
+      li.appendChild(tg);
+    }
+    var amt = document.createElement("div");
+    amt.className = "amt";
+    amt.textContent = kc(d.amount);
+    li.appendChild(amt);
+    if (d.message) {
+      var m = document.createElement("p");
+      m.className = "msg";
+      m.textContent = "„" + d.message + "“";
+      li.appendChild(m);
+    }
+    var w = document.createElement("div");
+    w.className = "who";
+    w.textContent = d.name;
+    if (d.date) {
+      var t = document.createElement("span");
+      t.className = "when";
+      t.textContent = d.date;
+      w.appendChild(t);
+    }
+    li.appendChild(w);
+    board.appendChild(li);
+  });
+
+  /* Jmenovitá děkovačka: každé jméno jednou, od nejstaršího přispěvatele; anonymní dárci každý zvlášť s částkou */
+  var seen = {}, names = [];
+  DONATIONS.slice().reverse().forEach(function (d) {
+    if (/^anonym/i.test(d.name)) { names.push("Anonymní (" + kc(d.amount) + ")"); return; }
+    if (!seen[d.name]) { seen[d.name] = 1; names.push(d.name); }
+  });
+  var wrap = $("names");
+  names.forEach(function (n) {
+    var s = document.createElement("span");
+    s.textContent = n;
+    wrap.appendChild(s);
+    wrap.appendChild(document.createTextNode(" "));
+  });
+</script>
+
+</body></html>
